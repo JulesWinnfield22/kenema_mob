@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:kenema/utils/constants/colors.dart';
 import 'package:kenema/utils/constants/image_string.dart';
 import 'package:kenema/utils/constants/sizes.dart';
-import 'package:kenema/utils/helpers/helper_function.dart';
 import 'package:kenema/utils/size/size.dart';
 import 'package:kenema/widgets/gradient_elevated_button/gradient_elevated_button.dart';
 
@@ -104,7 +103,9 @@ class _SplashScreenState extends State<SplashScreen> {
                         width: 100.screenWidth,
                         height: 55,
                         borderRadius: BorderRadius.circular(8.0),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).pushNamed('/login');
+                        },
                         child: const Text(
                           "Continue",
                           style: TextStyle(
