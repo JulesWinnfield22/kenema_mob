@@ -23,6 +23,10 @@ class Patient {
     required this.institutionName,
     required this.insuredStatus,
   });
+
+  factory Patient.fromJson(Map<String, dynamic> json) {
+   return Patient(title: json['title'], firstName: json['firstName'], fatherName: json['fatherName'], grandFatherName: json['grandFatherName'], gender: json['gender'], email: json['email'], mobilePhone: json['mobilePhone'], institutionName: json['institutionName'], insuredStatus: json['insuredStatus']); 
+  }
 }
 
 class PatientStore extends ChangeNotifier {
@@ -37,6 +41,11 @@ class PatientStore extends ChangeNotifier {
     institutionName: "Medco",
     insuredStatus: Status.active
   ); 
+
+  void fromJson(Map<String, dynamic> json) {
+    patient = Patient.fromJson(json);
+    notifyListeners();
+  }
 
   void changePatient(Patient p) {
     patient = p;
