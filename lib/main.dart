@@ -38,7 +38,7 @@ class _MyApp extends State<MyApp> {
       title: 'Flutter Demo',
       routes: {
         "/": (ctx) => const Splash(),
-        "/login": (ctx) => const LoginWithPhoneScreen(),
+        "/login": (ctx) => const Test(),
       },
       theme: ThemeData(
         // This is the theme of your application.
