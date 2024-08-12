@@ -1,33 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:kenema/features/equbs/api/equb_api.dart';
+import 'package:kenema/hooks/useApiRequest.dart';
 import 'package:kenema/utils/constants/colors.dart';
 import 'package:kenema/utils/constants/image_string.dart';
 import 'package:kenema/utils/constants/sizes.dart';
 import 'package:kenema/utils/size/size.dart';
 import 'package:kenema/widgets/gradient_elevated_button/gradient_elevated_button.dart';
 
-class LoginWithPhoneScreen extends StatefulWidget {
-  const LoginWithPhoneScreen({super.key});
+class Test extends HookWidget {
+  const Test({super.key});
 
-  @override
-  State<LoginWithPhoneScreen> createState() => _LoginWithPhoneScreenState();
-}
-
-class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
   @override
   Widget build(BuildContext context) {
+    var req = useApiRequest<Equb>();
+
+    Future<void> login() async {
+      if (req.value.pending.value) return;
+
+      var res = await req.value.send(getEqub()) ;
+
+      print((req.value.response?.value));
+    }
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: SizedBox(
         height: 100.screenHeight,
         width: 100.screenWidth,
         child: Padding(
-            padding: const EdgeInsets.only(
-              top: CSizes.defaultSpace,
-              right: CSizes.defaultSpace,
-              left: CSizes.defaultSpace,
-            ),
-            child: SingleChildScrollView(
-                child: SizedBox(
+          padding: const EdgeInsets.only(
+            top: CSizes.defaultSpace,
+            right: CSizes.defaultSpace,
+            left: CSizes.defaultSpace,
+          ),
+          child: SingleChildScrollView(
+            child: SizedBox(
               height: 95.screenHeight,
               child: Stack(
                 children: [
@@ -73,7 +81,8 @@ class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
                           width: 100.screenWidth,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(
-                                horizontal: CSizes.defaultSpace),
+                              horizontal: CSizes.defaultSpace,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -89,13 +98,15 @@ class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
                                 Container(
                                   height: 50,
                                   decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: CColors.textPrimary),
+                                    border: Border.all(
+                                      color: CColors.textPrimary,
+                                    ),
                                     borderRadius: BorderRadius.circular(5),
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
+                                      horizontal: 10,
+                                    ),
                                     child: Row(
                                       children: [
                                         const Text('+251'),
@@ -107,13 +118,13 @@ class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
                                           width: 50.screenWidth,
                                           child: const TextField(
                                             decoration: InputDecoration(
-                                                border: InputBorder.none,
-                                                focusedBorder: InputBorder.none,
-                                                enabledBorder: InputBorder.none,
-                                                errorBorder: InputBorder.none,
-                                                disabledBorder:
-                                                    InputBorder.none,
-                                                fillColor: Colors.white),
+                                              border: InputBorder.none,
+                                              focusedBorder: InputBorder.none,
+                                              enabledBorder: InputBorder.none,
+                                              errorBorder: InputBorder.none,
+                                              disabledBorder: InputBorder.none,
+                                              fillColor: Colors.white,
+                                            ),
                                           ),
                                         )
                                       ],
@@ -135,22 +146,23 @@ class _LoginWithPhoneScreenState extends State<LoginWithPhoneScreen> {
                       width: 100.screenWidth,
                       height: 55,
                       borderRadius: BorderRadius.circular(8.0),
-                      onPressed: () {
-                        //CHelperFunction(
-                        //    context, PhoneConfirmationScreen());
-                      },
-                      child: const Text(
-                        "Login",
-                        style: TextStyle(
-                          color: CColors.accent,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      onPressed: login,
+                      child: req.value.pending.value
+                          ? const Text("Shit")
+                          : Text(
+                              "Login ${req.value.response?.value?.name}",
+                              style: const TextStyle(
+                                color: CColors.accent,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                     ),
                   )
                 ],
               ),
-            ))),
+            ),
+          ),
+        ),
       ),
     );
   }

@@ -36,7 +36,7 @@ class _MyApp extends State<MyApp> {
       title: 'kenema',
       routes: {
         "/": (ctx) => const Splash(),
-        "/login": (ctx) => const LoginWithPhoneScreen(),
+        "/login": (ctx) => const Test(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

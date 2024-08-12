@@ -2,11 +2,11 @@ import 'package:http/http.dart' as http;
 
 class ResponseHandler<T> {
   int status;
-  T data;
+  T? data;
   bool success = false;
   String error;
 
-  ResponseHandler({required this.status, required this.data, required this.success, required this.error});
+  ResponseHandler({required this.status, this.data, required this.success, required this.error});
 }
 
 ResponseHandler<String> handler(http.Response response) {
@@ -23,7 +23,7 @@ ResponseHandler<String> handler(http.Response response) {
 }
 
 class ApiService {
-  String baseUrl = "http://localhost:4000/api";
+  String baseUrl = "http://192.168.100.25:4000/api";
 
   ApiService({baseUrl});
 

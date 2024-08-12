@@ -32,3 +32,6 @@ Future<ResponseHandler<Equb>> getEqub() async {
   return ResponseHandler(success: res.success, data: Equb(), error: res.error, status: res.status);
 }
 
+//void main() {
+//  print(getEqub());
+//}
