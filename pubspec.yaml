@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   http: ^1.2.2
   provider: ^6.1.2
+  equatable:
+  google_fonts: ^6.1.0
   gradient_elevated_button: ^1.0.0
   intl: ^0.19.0
   shared_preferences: ^2.3.1
