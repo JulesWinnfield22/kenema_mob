@@ -1,25 +1,39 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:kenema/features/equbs/api/equb_api.dart';
 import 'package:kenema/hooks/useApiRequest.dart';
+import 'package:kenema/store/patient_store.dart';
 import 'package:kenema/utils/constants/colors.dart';
 import 'package:kenema/utils/constants/image_string.dart';
 import 'package:kenema/utils/constants/sizes.dart';
+import 'package:kenema/utils/helpers/helper_function.dart';
 import 'package:kenema/utils/size/size.dart';
 import 'package:kenema/widgets/gradient_elevated_button/gradient_elevated_button.dart';
+import 'package:provider/provider.dart';
 
 class Test extends HookWidget {
-  const Test({super.key});
+  Test({super.key});
+  final _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    var req = useApiRequest<Equb>();
+    var req = useApiRequest<Patient>();
 
     Future<void> login() async {
       if (req.value.pending.value) return;
 
-      var res = await req.value.send(getEqub()) ;
+      var res = await req.value.send(getPatient(_textController.text));
+      if (res.success) {
+        var pref = await CHelperFunction.getInstance();
+        pref.setString("patient", jsonEncode(res.data as Patient));
 
+        Provider.of<PatientStore>(context, listen: false)
+            .changePatient(res.data as Patient);
+        Navigator.of(context).pushNamed('/confirmation');
+      }
+      print((req.value.error.value));
       print((req.value.response?.value));
     }
 
@@ -116,8 +130,9 @@ class Test extends HookWidget {
                                         SizedBox(
                                           height: 70,
                                           width: 50.screenWidth,
-                                          child: const TextField(
-                                            decoration: InputDecoration(
+                                          child: TextField(
+                                            controller: _textController,
+                                            decoration: const InputDecoration(
                                               border: InputBorder.none,
                                               focusedBorder: InputBorder.none,
                                               enabledBorder: InputBorder.none,
@@ -148,9 +163,9 @@ class Test extends HookWidget {
                       borderRadius: BorderRadius.circular(8.0),
                       onPressed: login,
                       child: req.value.pending.value
-                          ? const Text("Shit")
+                          ? const Text("...")
                           : Text(
-                              "Login ${req.value.response?.value?.name}",
+                              "Login ${(req.value.response?.value != null ? (req.value.response?.value as Patient).firstName : "")}",
                               style: const TextStyle(
                                 color: CColors.accent,
                                 fontWeight: FontWeight.w600,

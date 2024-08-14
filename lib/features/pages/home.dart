@@ -21,14 +21,14 @@ class FakeDataPopularCoverageModel {
       this.routeTo});
 }
 
-class PrescriptioScreen extends StatefulWidget {
-  const PrescriptioScreen({super.key});
+class Home extends StatefulWidget {
+  const Home({super.key});
 
   @override
-  State<PrescriptioScreen> createState() => _PrescriptioScreenState();
+  State<Home> createState() => _HomeState();
 }
 
-class _PrescriptioScreenState extends State<PrescriptioScreen> {
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

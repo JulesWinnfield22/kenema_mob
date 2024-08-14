@@ -6,7 +6,11 @@ class ResponseHandler<T> {
   bool success = false;
   String error;
 
-  ResponseHandler({required this.status, this.data, required this.success, required this.error});
+  ResponseHandler(
+      {required this.status,
+      this.data,
+      required this.success,
+      required this.error});
 }
 
 ResponseHandler<String> handler(http.Response response) {
@@ -19,11 +23,14 @@ ResponseHandler<String> handler(http.Response response) {
   }
 
   return ResponseHandler<String>(
-      success: false, data: "", error: response.body, status: response.statusCode);
+      success: false,
+      data: "",
+      error: response.body,
+      status: response.statusCode);
 }
 
 class ApiService {
-  String baseUrl = "http://192.168.100.25:4000/api";
+  String baseUrl = "http://15.184.217.156:8190/api";
 
   ApiService({baseUrl});
 

@@ -2,22 +2,29 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:kenema/features/login/login_with_phone_screen.dart';
+import 'package:kenema/features/pages/home_screen.dart';
+import 'package:kenema/features/phone_confirmation/phone_confirmation.dart';
 import 'package:kenema/features/splash/splash_screen.dart';
 import 'package:kenema/store/patient_store.dart';
+import 'package:kenema/utils/constants/sizes.dart';
+import 'package:kenema/utils/helpers/helper_function.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (ctx) => PatientStore(),
-      child: const MyApp(),
-    ),
-  );
-}
-
-Future<SharedPreferences> getInstance() async {
-  return await SharedPreferences.getInstance();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (ctx) => PatientStore()),
+      ChangeNotifierProvider<CurrentPageIndex>(
+          create: (ctx) => CurrentPageIndex()),
+    ],
+    child: const MyApp(),
+  )
+      // ChangeNotifierProvider(
+      //   create: (ctx) => PatientStore(),
+      //   child: const MyApp(),
+      // ),
+      );
 }
 
 class MyApp extends StatefulWidget {
@@ -36,7 +43,9 @@ class _MyApp extends State<MyApp> {
       title: 'kenema',
       routes: {
         "/": (ctx) => const Splash(),
-        "/login": (ctx) => const Test(),
+        "/login": (ctx) => Test(),
+        "/home": (ctx) => const HomeScreen(),
+        "/confirmation": (ctx) => const PhoneConfirmationScreen(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
@@ -64,11 +73,11 @@ class _Splash extends State<Splash> {
   }
 
   Future _checkLoggedIn() async {
-    await Future.delayed(const Duration(seconds: 6));
+    await Future.delayed(const Duration(seconds: 2));
 
-    var pref = await getInstance();
+    var pref = await CHelperFunction.getInstance();
     var patient = pref.getString("patient");
-
+    await pref.clear();
     if (patient == null) {
       setState(() {
         checking = false;
@@ -77,7 +86,7 @@ class _Splash extends State<Splash> {
       if (mounted) {
         Provider.of<PatientStore>(context, listen: false)
             .fromJson(jsonDecode(patient));
-        Navigator.of(context).pushNamed('/home');
+        Navigator.of(context).pushReplacementNamed('/home');
       }
     }
   }
@@ -85,7 +94,13 @@ class _Splash extends State<Splash> {
   @override
   Widget build(BuildContext context) {
     if (checking) {
-      return const Center(child: Text("Loading..."));
+      return const Scaffold(
+        body: Center(
+            child: Text(
+          "Loading...",
+          style: TextStyle(fontSize: CSizes.xl),
+        )),
+      );
     } else {
       return const SplashScreen();
     }
