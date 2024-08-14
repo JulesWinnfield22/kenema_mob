@@ -18,7 +18,7 @@ class Test extends HookWidget {
     Future<void> login() async {
       if (req.value.pending.value) return;
 
-      var res = await req.value.send(getEqub()) ;
+      await req.value.send(getEqub()) ;
 
       print((req.value.response?.value));
     }
