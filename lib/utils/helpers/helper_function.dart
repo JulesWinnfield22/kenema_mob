@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CHelperFunction {
   static void navigateToScreen(BuildContext context, Widget screen,
@@ -19,6 +20,10 @@ class CHelperFunction {
         ),
       );
     }
+  }
+
+  static Future<SharedPreferences> getInstance() async {
+    return await SharedPreferences.getInstance();
   }
 
   static void navigateSlideToScreen(

@@ -2,22 +2,29 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:kenema/features/login/login_with_phone_screen.dart';
+import 'package:kenema/features/pages/home_screen.dart';
+import 'package:kenema/features/phone_confirmation/phone_confirmation.dart';
 import 'package:kenema/features/splash/splash_screen.dart';
 import 'package:kenema/store/patient_store.dart';
+import 'package:kenema/utils/constants/sizes.dart';
+import 'package:kenema/utils/helpers/helper_function.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      create: (ctx) => PatientStore(),
-      child: const MyApp(),
-    ),
-  );
-}
-
-Future<SharedPreferences> getInstance() async {
-  return await SharedPreferences.getInstance();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (ctx) => PatientStore()),
+      ChangeNotifierProvider<CurrentPageIndex>(
+          create: (ctx) => CurrentPageIndex()),
+    ],
+    child: const MyApp(),
+  )
+      // ChangeNotifierProvider(
+      //   create: (ctx) => PatientStore(),
+      //   child: const MyApp(),
+      // ),
+      );
 }
 
 class MyApp extends StatefulWidget {
@@ -27,41 +34,25 @@ class MyApp extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _MyApp();
   }
-
 }
 
 class _MyApp extends State<MyApp> {
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'kenema',
       routes: {
         "/": (ctx) => const Splash(),
-        "/login": (ctx) => const Test(),
+        "/login": (ctx) => Test(),
+        "/home": (ctx) => const HomeScreen(),
+        "/confirmation": (ctx) => const PhoneConfirmationScreen(),
       },
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
     );
   }
-  
 }
 
 class Splash extends StatefulWidget {
@@ -71,7 +62,6 @@ class Splash extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _Splash();
   }
-  
 }
 
 class _Splash extends State<Splash> {
@@ -83,27 +73,34 @@ class _Splash extends State<Splash> {
   }
 
   Future _checkLoggedIn() async {
-    await Future.delayed(const Duration(seconds: 6));
+    await Future.delayed(const Duration(seconds: 2));
 
-    var pref = await getInstance();
+    var pref = await CHelperFunction.getInstance();
     var patient = pref.getString("patient");
-
-    if(patient == null) {
+    await pref.clear();
+    if (patient == null) {
       setState(() {
         checking = false;
       });
     } else {
-       if(mounted) {
-         Provider.of<PatientStore>(context, listen: false).fromJson(jsonDecode(patient));
-         Navigator.of(context).pushNamed('/home');
-       }
+      if (mounted) {
+        Provider.of<PatientStore>(context, listen: false)
+            .fromJson(jsonDecode(patient));
+        Navigator.of(context).pushReplacementNamed('/home');
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    if(checking) {
-      return const Center(child: Text("Loading..."));
+    if (checking) {
+      return const Scaffold(
+        body: Center(
+            child: Text(
+          "Loading...",
+          style: TextStyle(fontSize: CSizes.xl),
+        )),
+      );
     } else {
       return const SplashScreen();
     }
