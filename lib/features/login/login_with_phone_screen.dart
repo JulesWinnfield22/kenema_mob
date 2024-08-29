@@ -163,7 +163,12 @@ class Test extends HookWidget {
                       borderRadius: BorderRadius.circular(8.0),
                       onPressed: login,
                       child: req.value.pending.value
-                          ? const Text("...")
+                          ? const Text(
+                              "...",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
+                            )
                           : Text(
                               "Login ${(req.value.response?.value != null ? (req.value.response?.value as Patient).firstName : "")}",
                               style: const TextStyle(

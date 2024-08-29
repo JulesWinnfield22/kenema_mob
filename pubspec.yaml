@@ -43,6 +43,7 @@ dependencies:
   intl: ^0.19.0
   shared_preferences: ^2.3.1
   flutter_hooks: ^0.20.5
+  flutter_svg: ^1.1.6
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +72,11 @@ flutter:
     - assets/images/family_image.png
     - assets/images/pattern_1.png
     - assets/images/kenema.png
+    - assets/images/Ad1.png
+    - assets/images/group.png
+    - assets/images/nearest.svg
+    - assets/images/map.png
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
