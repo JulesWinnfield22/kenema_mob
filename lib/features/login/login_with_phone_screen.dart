@@ -33,8 +33,6 @@ class Test extends HookWidget {
             .changePatient(res.data as Patient);
         Navigator.of(context).pushNamed('/confirmation');
       }
-      print((req.value.error.value));
-      print((req.value.response?.value));
     }
 
     return Scaffold(

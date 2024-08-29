@@ -77,6 +77,7 @@ class _Splash extends State<Splash> {
 
     var pref = await CHelperFunction.getInstance();
     var patient = pref.getString("patient");
+    print(patient);
     await pref.clear();
     if (patient == null) {
       setState(() {

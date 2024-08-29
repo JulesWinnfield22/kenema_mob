@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:kenema/utils/constants/colors.dart';
 import 'package:kenema/utils/constants/sizes.dart';
+import 'package:kenema/utils/size/size.dart';
 
 class FakeDataPopularCoverageModel {
   final String titleText;
@@ -23,46 +25,68 @@ class RefillScreen extends StatefulWidget {
   const RefillScreen({super.key});
 
   @override
-  State<RefillScreen> createState() => _InsuranceScreenState();
+  State<RefillScreen> createState() => _RefillScreen();
 }
 
-class _InsuranceScreenState extends State<RefillScreen> {
+class _RefillScreen extends State<RefillScreen> {
   @override
   Widget build(BuildContext context) {
-    return
-        // backgroundColor: Colors.grey.shade100,
-
-        SingleChildScrollView(
+    return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(CSizes.defaultSpace),
+        padding: const EdgeInsets.symmetric(
+          horizontal: CSizes.defaultSpace,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 15,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Refil",
+                  style: TextStyle(
+                      fontSize: 18,
+                      color: CColors.textLabel,
+                      fontWeight: FontWeight.w100,
+                      fontFamily: GoogleFonts.montserrat().fontFamily),
+                ),
+                const Text(
+                  "Welcome!",
+                  style: TextStyle(
+                    fontSize: 24,
+                    color: CColors.textLabel,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            const SizedBox(
+              height: 20,
+            ),
+            const SizedBox(
+              height: 20,
             ),
             Text(
-              "Popular coverages",
+              "Prescriptions",
               style: TextStyle(
                 color: CColors.textLabel.withOpacity(0.8),
                 fontWeight: FontWeight.w600,
                 fontSize: 21,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 10.0,
-                mainAxisExtent: 120,
+            SizedBox(
+              height: 120,
+              width: 100.screenWidth,
+              child: const SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
               ),
-              shrinkWrap: true,
-              itemBuilder: (BuildContext context, int index) {
-                return GestureDetector();
-              },
+            ),
+            const SizedBox(
+              height: 30,
             )
           ],
         ),

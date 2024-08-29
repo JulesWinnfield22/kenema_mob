@@ -44,6 +44,8 @@ class CurrentPageIndex with ChangeNotifier {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late ScreenData currentScreen;
+
   final List<ScreenData> screenDatas = [
     const ScreenData(
       title: "Home",
@@ -63,116 +65,36 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   @override
+  void initState() {
+    currentScreen = screenDatas[0];
+    super.initState();
+  }
+
+  void changePage(int index) {
+    setState(() {
+      currentScreen = screenDatas[index];
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final currentIndexProvider = Provider.of<CurrentPageIndex>(context);
-    final currentScreen = screenDatas[currentIndexProvider.currentIndex].screen;
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 10,
-          leading: Padding(
-            padding: const EdgeInsets.only(right: 20, left: 20),
-            child: Image.asset(
-              CImages.kenema,
-              height: 90,
-            ),
-          ),
-          actions: [
-            Text(
-              "Hello Birhane",
-              style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16),
-            )
-          ],
-        ),
-        backgroundColor: CColors.primaryBackground,
-        body: currentScreen,
+    return const DefaultTabController(
+      length: 3,
+      animationDuration: Duration.zero,
+      child: Scaffold(
+        body: TabBarView(children: [
+          Home(),
+          PrescriptioScreen(),
+          RefillScreen(),
+        ]),
         bottomNavigationBar: BottomAppBar(
-          color: Colors.white,
-          surfaceTintColor: Colors.white,
-          elevation: 10,
-          padding: EdgeInsets.all(0),
-          child: Container(
-            width: 100.screenWidth,
-            height: 0,
-            color: const Color.fromRGBO(255, 255, 255, 1),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: screenDatas.map((data) {
-                return Expanded(
-                  flex: 1,
-                  child: Container(
-                    // onPressed: () {},
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  colors: data.title ==
-                                          screenDatas[currentIndexProvider
-                                                  .currentIndex]
-                                              .title
-                                      ? [CColors.primary, CColors.primary]
-                                      : [
-                                          Colors.transparent,
-                                          Colors.transparent
-                                        ],
-                                ),
-                                borderRadius: BorderRadius.circular(50),
-                              ),
-                              child: TextButton(
-                                onPressed: () {
-                                  // final selectedIndex =
-                                  //     screenDatas.indexOf(data);
-                                  // context
-                                  //     .read<CurrentPageIndex>()
-                                  //     .setCurrentIndex(selectedIndex);
-                                },
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: Icon(
-                                    data.icon,
-                                    size: 25,
-                                  ),
-                                ),
-                              )),
-                        ),
-                        Flexible(
-                          child: ShaderMask(
-                            shaderCallback: (Rect bounds) {
-                              return LinearGradient(
-                                colors: [CColors.primary, CColors.primary],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                              ).createShader(bounds);
-                            },
-                            child: Text(
-                              data.title!,
-                              style: TextStyle(
-                                // backgroundColor: Colors.yellow,
-                                color: data.title ==
-                                        screenDatas[currentIndexProvider
-                                                .currentIndex]
-                                            .title
-                                    ? Colors.white
-                                    : CColors.textLabel,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
+          child: TabBar(
+            dividerColor: Colors.transparent,
+            tabs: [
+              Tab(icon: Icon(Icons.directions_car), text: "Home"),
+              Tab(icon: Icon(Icons.directions_transit), text: "Prescriptionsdfsdf"),
+              Tab(icon: Icon(Icons.directions_bike), text: 'Refill',),
+            ],
           ),
         ),
       ),

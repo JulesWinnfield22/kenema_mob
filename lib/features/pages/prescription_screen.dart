@@ -43,7 +43,7 @@ class _PrescriptioScreenState extends State<PrescriptioScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Hello Birhane,",
+                  "Hello,",
                   style: TextStyle(
                       fontSize: 18,
                       color: CColors.textLabel,
