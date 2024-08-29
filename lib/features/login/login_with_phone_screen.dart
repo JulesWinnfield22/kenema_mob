@@ -22,9 +22,12 @@ class Test extends HookWidget {
     var req = useApiRequest<Patient>();
 
     Future<void> login() async {
+      print("sdfsdf");
       if (req.value.pending.value) return;
 
       var res = await req.value.send(getPatient(_textController.text));
+      print(res.error);
+
       if (res.success) {
         var pref = await CHelperFunction.getInstance();
         pref.setString("patient", jsonEncode(res.data as Patient));
@@ -161,7 +164,12 @@ class Test extends HookWidget {
                       borderRadius: BorderRadius.circular(8.0),
                       onPressed: login,
                       child: req.value.pending.value
-                          ? const Text("...")
+                          ? const Text(
+                              "...",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w600),
+                            )
                           : Text(
                               "Login ${(req.value.response?.value != null ? (req.value.response?.value as Patient).firstName : "")}",
                               style: const TextStyle(

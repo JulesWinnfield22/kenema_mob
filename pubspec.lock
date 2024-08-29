@@ -45,10 +45,10 @@ packages:
     dependency: transitive
     description:
       name: crypto
-      sha256: ff625774173754681d66daaf4a448684fb04b78f902da9cb3d308c19cc5e8bab
+      sha256: ec30d999af904f33454ba22ed9a86162b35e52b44ac4807d1d93c288041d7d27
       url: "https://pub.dev"
     source: hosted
-    version: "3.0.3"
+    version: "3.0.5"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -110,6 +110,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.0"
+  flutter_svg:
+    dependency: "direct main"
+    description:
+      name: flutter_svg
+      sha256: "6ff9fa12892ae074092de2fa6a9938fb21dbabfdaa2ff57dc697ff912fc8d4b2"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.6"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -232,6 +240,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.0"
+  path_drawing:
+    dependency: transitive
+    description:
+      name: path_drawing
+      sha256: bbb1934c0cbb03091af082a6389ca2080345291ef07a5fa6d6e078ba8682f977
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  path_parsing:
+    dependency: transitive
+    description:
+      name: path_parsing
+      sha256: e3e67b1629e6f7e8100b367d3db6ba6af4b1f0bb80f64db18ef1fbabd2fa9ccf
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
   path_provider:
     dependency: transitive
     description:
@@ -244,10 +268,10 @@ packages:
     dependency: transitive
     description:
       name: path_provider_android
-      sha256: "490539678396d4c3c0b06efdaab75ae60675c3e0c66f72bc04c2e2c1e0e2abeb"
+      sha256: "6f01f8e37ec30b07bc424b4deabac37cacb1bc7e2e515ad74486039918a37eb7"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.9"
+    version: "2.2.10"
   path_provider_foundation:
     dependency: transitive
     description:
@@ -280,6 +304,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.0"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      sha256: c15605cd28af66339f8eb6fbe0e541bfe2d1b72d5825efc6598f3e0a31b9ad27
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.2"
   platform:
     dependency: transitive
     description:
@@ -308,26 +340,26 @@ packages:
     dependency: "direct main"
     description:
       name: shared_preferences
-      sha256: c272f9cabca5a81adc9b0894381e9c1def363e980f960fa903c604c471b22f68
+      sha256: "746e5369a43170c25816cc472ee016d3a66bc13fcf430c0bc41ad7b4b2922051"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   shared_preferences_android:
     dependency: transitive
     description:
       name: shared_preferences_android
-      sha256: a7e8467e9181cef109f601e3f65765685786c1a738a83d7fbbde377589c0d974
+      sha256: "480ba4345773f56acda9abf5f50bd966f581dac5d514e5fc4a18c62976bbba7e"
       url: "https://pub.dev"
     source: hosted
-    version: "2.3.1"
+    version: "2.3.2"
   shared_preferences_foundation:
     dependency: transitive
     description:
       name: shared_preferences_foundation
-      sha256: "776786cff96324851b656777648f36ac772d88bc4c669acff97b7fce5de3c849"
+      sha256: c4b35f6cb8f63c147312c054ce7c2254c8066745125264f0c88739c417fc9d9f
       url: "https://pub.dev"
     source: hosted
-    version: "2.5.1"
+    version: "2.5.2"
   shared_preferences_linux:
     dependency: transitive
     description:
@@ -453,6 +485,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      sha256: b015a8ad1c488f66851d762d3090a21c600e479dc75e68328c52774040cf9226
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.5.0"
 sdks:
   dart: ">=3.5.0 <4.0.0"
   flutter: ">=3.22.0"

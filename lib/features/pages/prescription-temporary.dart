@@ -1,9 +1,12 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:kenema/features/equbs/api/prescription_api.dart';
+import 'package:kenema/store/prescription_store.dart';
 import 'package:kenema/utils/constants/colors.dart';
 import 'package:kenema/utils/constants/sizes.dart';
 import 'package:kenema/utils/size/size.dart';
+import 'package:provider/provider.dart';
 
 class ScreenData extends Equatable {
   final String? title;
@@ -75,7 +78,9 @@ class _ProfileState extends State<Profile> {
   ];
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
+    var prescriptions = Provider.of<prescriptionStore>(context, listen: false);
+    print("abel    ${prescriptions.prescriptions!= null ? prescriptions.prescriptions?.prescriptions![0].drugPrescriptions?.length  : 'null'} ");
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -129,11 +134,11 @@ class _ProfileState extends State<Profile> {
                                   children: [
                                     Row(
                                       children: [
-                                        Image.asset(
-                                          popularCoverage.imageUrl ?? '',
-                                          width: 40,
-                                          height: 40,
-                                        ),
+                                        // Image.asset(
+                                        //   popularCoverage.imageUrl ?? '',
+                                        //   width: 40,
+                                        //   height: 40,
+                                        // ),
                                         SizedBox(
                                           width: 10,
                                         ),

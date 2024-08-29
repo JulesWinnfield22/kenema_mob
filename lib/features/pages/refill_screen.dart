@@ -25,10 +25,10 @@ class RefillScreen extends StatefulWidget {
   const RefillScreen({super.key});
 
   @override
-  State<RefillScreen> createState() => _RefillScreen();
+  State<RefillScreen> createState() => _RefillScreenState();
 }
 
-class _RefillScreen extends State<RefillScreen> {
+class _RefillScreenState extends State<RefillScreen> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -43,7 +43,7 @@ class _RefillScreen extends State<RefillScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Refil",
+                  "Refill,",
                   style: TextStyle(
                       fontSize: 18,
                       color: CColors.textLabel,
@@ -60,11 +60,11 @@ class _RefillScreen extends State<RefillScreen> {
                 ),
               ],
             ),
-            const SizedBox(height: 20),
-            const SizedBox(
+            SizedBox(height: 20),
+            SizedBox(
               height: 20,
             ),
-            const SizedBox(
+            SizedBox(
               height: 20,
             ),
             Text(
@@ -81,11 +81,11 @@ class _RefillScreen extends State<RefillScreen> {
             SizedBox(
               height: 120,
               width: 100.screenWidth,
-              child: const SingleChildScrollView(
+              child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 30,
             )
           ],
