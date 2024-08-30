@@ -144,6 +144,11 @@ class DrugPrescription {
       return DrugPrescription.fromJson(drug);
     }).toList();
   }
+
+  // @override
+  // String toString() {
+  //   return 'DrugPrescription(cautions: $cautions)';
+  // }
 }
 
 class Patients {
@@ -223,9 +228,10 @@ class PrescriptionHistory {
         print("hehehe ${pre['drugPrescriptions']}");
         return Prescriptions(
           prescriptionUuid: pre['prescriptionUuid'],
-          drugPrescriptions: DrugPrescription.fromArrayJson(pre['drugPrescriptions']),
+          drugPrescriptions:
+              DrugPrescription.fromArrayJson(pre['drugPrescriptions']),
         );
-      }, 
+      },
     ).toList();
     // List<dynamic> prescriptions = jsonDecode(json['prescriptions']);
     return PrescriptionHistory(

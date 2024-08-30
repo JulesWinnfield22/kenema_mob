@@ -78,119 +78,55 @@ class _ProfileState extends State<Profile> {
   ];
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     var prescriptions = Provider.of<prescriptionStore>(context, listen: false);
-    print("abel    ${prescriptions.prescriptions!= null ? prescriptions.prescriptions?.prescriptions![0].drugPrescriptions?.length  : 'null'} ");
+
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: CSizes.defaultSpace,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: CSizes.defaultSpace),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Profile",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: CColors.textLabel,
-                    fontWeight: FontWeight.bold,
+            SizedBox(height: 20),
+            // Loop through each prescription group
+            for (var pre in prescriptions.prescriptions!.prescriptions!)
+              Container(
+                padding: EdgeInsets.all(10), // Padding around the grid
+                child: GridView.builder(
+                  shrinkWrap: true, // Allow GridView to wrap its contents
+                  physics: NeverScrollableScrollPhysics(), // Disable scrolling
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // 2 columns
+                    mainAxisSpacing: 10.0, // Spacing between rows
+                    crossAxisSpacing: 10.0, // Spacing between columns
+                    childAspectRatio: 1, // Adjust the aspect ratio as needed
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Column(
-              children: ScreenDatas.map((popularCoverage) {
-                return Padding(
-                  padding: EdgeInsets.only(right: 10.0),
-                  child: Column(
-                    children: [
-                      GestureDetector(
-                        child: Container(
-                          height: 72,
-                          width: 100.screenWidth,
-                          decoration: BoxDecoration(
-                            color:
-                                popularCoverage.backgroundColor ?? Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                                color: popularCoverage.color ??
-                                    Colors.transparent),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.all(15),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        // Image.asset(
-                                        //   popularCoverage.imageUrl ?? '',
-                                        //   width: 40,
-                                        //   height: 40,
-                                        // ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              popularCoverage.title ?? '',
-                                              style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: CColors.textPrimary),
-                                            ),
-                                            Text(
-                                              popularCoverage.subTitle ?? '',
-                                              style: TextStyle(
-                                                  color: CColors.textPrimary,
-                                                  fontSize: 10),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    Text(
-                                      popularCoverage.arrow ?? '',
-                                      style: TextStyle(
-                                        fontSize: 28,
-                                        color: CColors.textPrimary,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                  itemCount: pre.drugPrescriptions?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    final prescription = pre.drugPrescriptions![index];
+                    return SizedBox(
+                      height: 20, // Set a fixed height for each item
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: Colors.white, // Background color for each item
                         ),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => popularCoverage.screen!));
-                        },
+                        padding: EdgeInsets.all(6), // Padding of 6
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Prescription: ${prescription.productName}',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            Text('Details: ${prescription.instruction}'),
+                          ],
+                        ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      )
-                    ],
-                  ),
-                );
-              }).toList(),
-            ),
+                    );
+                  },
+                ),
+              ),
           ],
         ),
       ),
