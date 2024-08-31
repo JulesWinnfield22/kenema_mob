@@ -82,53 +82,50 @@ class _ProfileState extends State<Profile> {
     var prescriptions = Provider.of<prescriptionStore>(context, listen: false);
 
     return SingleChildScrollView(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: CSizes.defaultSpace),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SizedBox(height: 20),
-            // Loop through each prescription group
-            for (var pre in prescriptions.prescriptions!.prescriptions!)
-              Container(
-                padding: EdgeInsets.all(10), // Padding around the grid
-                child: GridView.builder(
-                  shrinkWrap: true, // Allow GridView to wrap its contents
-                  physics: NeverScrollableScrollPhysics(), // Disable scrolling
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2, // 2 columns
-                    mainAxisSpacing: 10.0, // Spacing between rows
-                    crossAxisSpacing: 10.0, // Spacing between columns
-                    childAspectRatio: 1, // Adjust the aspect ratio as needed
-                  ),
-                  itemCount: pre.drugPrescriptions?.length ?? 0,
-                  itemBuilder: (context, index) {
-                    final prescription = pre.drugPrescriptions![index];
-                    return SizedBox(
-                      height: 20, // Set a fixed height for each item
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10.0),
-                          color: Colors.white, // Background color for each item
-                        ),
-                        padding: EdgeInsets.all(6), // Padding of 6
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Prescription: ${prescription.productName}',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            ),
-                            Text('Details: ${prescription.instruction}'),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          SizedBox(height: 20),
+          // Loop through each prescription group
+          for (var pre in prescriptions.prescriptions!.prescriptions!)
+            Container(
+              child: GridView.builder(
+                shrinkWrap: true, // Allow GridView to wrap its contents
+                physics: NeverScrollableScrollPhysics(), // Disable scrolling
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2, // 2 columns
+                  mainAxisSpacing: 10.0, // Spacing between rows
+                  crossAxisSpacing: 10.0, // Spacing between columns
+                  childAspectRatio: 5, // Adjust the aspect ratio as needed
                 ),
+                itemCount: pre.drugPrescriptions?.length ?? 0,
+                itemBuilder: (context, index) {
+                  final prescription = pre.drugPrescriptions![index];
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      color: Colors.white, // Background color for each item
+                    ),
+                    padding: EdgeInsets.all(6), // Padding of 6
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          '${prescription.productName}',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          '${prescription.instruction}',
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-          ],
-        ),
+            ),
+        ],
       ),
     );
   }

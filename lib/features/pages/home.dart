@@ -8,6 +8,7 @@ import 'package:kenema/features/equbs/api/prescription_api.dart';
 import 'package:kenema/features/pages/prescription-temporary.dart';
 import 'package:kenema/features/pages/prescription_screen.dart';
 import 'package:kenema/features/pages/refill_screen.dart';
+import 'package:kenema/features/pages/refill_temporary.dart';
 import 'package:kenema/hooks/useApiRequest.dart';
 import 'package:kenema/store/patient_store.dart';
 import 'package:kenema/store/prescription_store.dart';
@@ -25,7 +26,7 @@ class Home extends HookWidget {
   // int _currentIndex = 0;
   final List<Widget> _pages = [
     Profile(),
-    RefillScreen(), 
+    RefillTemporary(),
     // Home(),
   ];
   @override
@@ -45,10 +46,10 @@ class Home extends HookWidget {
           getPrescription(Provider.of<PatientStore>(context, listen: false)
               .patient
               ?.userUuid as String),
-        ); 
-        print("object ${req.value.error.value}");  
- 
-        if(res.success) {
+        );
+        print("object ${req.value.error.value}");
+
+        if (res.success) {
           Provider.of<prescriptionStore>(context, listen: false)
               .changePrescription(res.data as PrescriptionHistory);
         }

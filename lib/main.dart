@@ -7,6 +7,7 @@ import 'package:kenema/features/phone_confirmation/phone_confirmation.dart';
 import 'package:kenema/features/splash/splash_screen.dart';
 import 'package:kenema/store/patient_store.dart';
 import 'package:kenema/store/prescription_store.dart';
+import 'package:kenema/store/refill_store.dart';
 import 'package:kenema/utils/constants/sizes.dart';
 import 'package:kenema/utils/helpers/helper_function.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,7 @@ void main() {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (ctx) => PatientStore()),
+      ChangeNotifierProvider(create: (ctx) => RefillStore()),
       ChangeNotifierProvider(create: (ctx) => prescriptionStore()),
       ChangeNotifierProvider<CurrentPageIndex>(
           create: (ctx) => CurrentPageIndex()),

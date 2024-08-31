@@ -1,8 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kenema/store/prescription_store.dart';
 import 'package:kenema/utils/constants/colors.dart';
 import 'package:kenema/utils/constants/sizes.dart';
 import 'package:kenema/utils/size/size.dart';
+import 'package:provider/provider.dart';
 
 class FakeDataPopularCoverageModel {
   final String titleText;
@@ -31,63 +34,54 @@ class PrescriptioScreen extends StatefulWidget {
 class _PrescriptioScreenState extends State<PrescriptioScreen> {
   @override
   Widget build(BuildContext context) {
+    var prescriptions = Provider.of<prescriptionStore>(context, listen: false);
+
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: CSizes.defaultSpace,
-        ),
+        padding: const EdgeInsets.all(CSizes.defaultSpace),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Hello,",
-                  style: TextStyle(
-                      fontSize: 18,
-                      color: CColors.textLabel,
-                      fontWeight: FontWeight.w100,
-                      fontFamily: GoogleFonts.montserrat().fontFamily),
-                ),
-                const Text(
-                  "Welcome!",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: CColors.textLabel,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
             SizedBox(height: 20),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              "Prescriptions",
-              style: TextStyle(
-                color: CColors.textLabel.withOpacity(0.8),
-                fontWeight: FontWeight.w600,
-                fontSize: 21,
+            // Loop through each prescription group
+            for (var pre in prescriptions.prescriptions!.prescriptions!)
+              Container(
+                child: GridView.builder(
+                  shrinkWrap: true, // Allow GridView to wrap its contents
+                  physics: NeverScrollableScrollPhysics(), // Disable scrolling
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2, // 2 columns
+                    mainAxisSpacing: 10.0, // Spacing between rows
+                    crossAxisSpacing: 10.0, // Spacing between columns
+                    childAspectRatio: 5, // Adjust the aspect ratio as needed
+                  ),
+                  itemCount: pre.drugPrescriptions?.length ?? 0,
+                  itemBuilder: (context, index) {
+                    final prescription = pre.drugPrescriptions![index];
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10.0),
+                        color: Colors.white, // Background color for each item
+                      ),
+                      padding: EdgeInsets.all(6), // Padding of 6
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            '${prescription.productName}',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            '${prescription.instruction}',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            SizedBox(
-              height: 120,
-              width: 100.screenWidth,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            )
           ],
         ),
       ),

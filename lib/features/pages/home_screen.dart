@@ -14,8 +14,10 @@ class ScreenData extends Equatable {
   final String? title;
   final IconData? icon;
   final Widget? screen;
+  final String? subTitle;
 
   const ScreenData({
+    this.subTitle,
     this.title,
     this.icon,
     this.screen,
@@ -34,7 +36,6 @@ class HomeScreen extends StatefulWidget {
 
 class CurrentPageIndex with ChangeNotifier {
   int _currentIndex = 0; // Assuming "Prescriptions" is at index 0
-
   int get currentIndex => _currentIndex;
 
   void setCurrentIndex(int index) {
@@ -54,20 +55,20 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<ScreenData> screenDatas = [
     ScreenData(
-      title: "Home",
-      icon: Icons.home_outlined,
-      screen: Home(),
-    ),
+        title: "Home",
+        icon: Icons.home_outlined,
+        screen: Home(),
+        subTitle: "Hello Birhane"),
     ScreenData(
-      title: "Prescriptions",
-      icon: Icons.home_outlined,
-      screen: PrescriptioScreen(),
-    ),
+        title: "Prescriptions",
+        icon: Icons.home_outlined,
+        screen: PrescriptioScreen(),
+        subTitle: "Prescriptions"),
     ScreenData(
-      title: "Refill",
-      icon: Icons.shield_outlined,
-      screen: RefillScreen(),
-    ),
+        title: "Refill",
+        icon: Icons.shield_outlined,
+        screen: RefillScreen(),
+        subTitle: "Refill"),
   ];
 
   @override
@@ -86,6 +87,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final currentIndexProvider = Provider.of<CurrentPageIndex>(context);
     final currentScreen = screenDatas[currentIndexProvider.currentIndex].screen;
+    String? activeTitle =
+        screenDatas[currentIndexProvider.currentIndex].subTitle;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -97,9 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 90,
           ),
         ),
-        actions: const [
+        actions: [
           Text(
-            "Hello Birhane",
+            '$activeTitle',
             style: TextStyle(
               fontSize: 18,
               color: CColors.textLabel,
