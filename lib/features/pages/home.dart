@@ -15,9 +15,7 @@ import 'package:kenema/store/prescription_store.dart';
 import 'package:kenema/utils/constants/colors.dart';
 import 'package:kenema/utils/constants/image_string.dart';
 import 'package:kenema/utils/constants/sizes.dart';
-import 'package:kenema/utils/helpers/helper_function.dart';
-import 'package:kenema/utils/size/size.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:provider/provider.dart';
 
 class Home extends HookWidget {
@@ -194,7 +192,13 @@ class Home extends HookWidget {
                 ))
               ],
             ),
-            !req.value.pending.value ? a.value : const Text('Loading')
+            !req.value.pending.value
+                ? a.value
+                : Container(
+                    child: Center(
+                      child: Text("Loading"),
+                    ),
+                  )
           ],
         ),
       ),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kenema/features/pages/map_page.dart';
 import 'package:kenema/utils/constants/colors.dart';
 import 'package:kenema/utils/constants/sizes.dart';
 import 'package:kenema/utils/size/size.dart';
@@ -48,32 +49,32 @@ class RefillScreen extends StatefulWidget {
 class _RefillScreenState extends State<RefillScreen> {
   List<ScreenData> ScreenDatas = [
     ScreenData(
-        title: "Branches",
+        title: "Akaki",
         subTitle: "Branches location detail",
         imageUrl: "assets/images/Preferences.png",
         arrow: ">"),
     ScreenData(
-        title: "Branches",
+        title: "Bole",
         subTitle: "Branches location detail",
         imageUrl: "assets/images/Account.png",
         arrow: ">"),
     ScreenData(
-        title: "Branches",
+        title: "Saris",
         subTitle: "Branches location detail",
         imageUrl: "assets/images/Setting.png",
         arrow: ">"),
     ScreenData(
-        title: "Branches",
+        title: "Gerji",
         subTitle: "Branches location detail",
         imageUrl: "assets/images/Terms&conditions.png",
         arrow: ">"),
     ScreenData(
-        title: "Branches",
+        title: "Bole bulbula",
         subTitle: "Branches location detail",
         imageUrl: "assets/images/CheckUpdate.png",
         arrow: ">"),
     ScreenData(
-      title: "Branches",
+      title: "Piasa",
       subTitle: "Branches location detail",
       imageUrl: "assets/images/AboutHelp.png",
       arrow: ">",
@@ -170,10 +171,7 @@ class _RefillScreenState extends State<RefillScreen> {
                           ),
                         ),
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (_) => popularCoverage.screen!));
+                          Navigator.of(context).pushNamed('/map');
                         },
                       ),
                       SizedBox(

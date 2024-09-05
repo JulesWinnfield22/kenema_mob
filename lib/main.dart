@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:kenema/features/login/login_with_phone_screen.dart';
 import 'package:kenema/features/pages/home_screen.dart';
+import 'package:kenema/features/pages/map_page.dart';
 import 'package:kenema/features/phone_confirmation/phone_confirmation.dart';
 import 'package:kenema/features/splash/splash_screen.dart';
 import 'package:kenema/store/patient_store.dart';
@@ -50,6 +51,7 @@ class _MyApp extends State<MyApp> {
         "/login": (ctx) => Test(),
         "/home": (ctx) => const HomeScreen(),
         "/confirmation": (ctx) => const PhoneConfirmationScreen(),
+        "/map": (ctx) => MapScreen(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

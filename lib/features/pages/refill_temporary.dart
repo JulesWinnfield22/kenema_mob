@@ -1,48 +1,36 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:kenema/features/equbs/api/prescription_api.dart';
 import 'package:kenema/features/equbs/api/refill_api.dart';
 import 'package:kenema/hooks/useApiRequest.dart';
-import 'package:kenema/store/prescription_store.dart';
+import 'package:kenema/store/patient_store.dart';
 import 'package:kenema/store/refill_store.dart';
 import 'package:kenema/utils/constants/colors.dart';
 import 'package:kenema/utils/constants/sizes.dart';
-import 'package:kenema/utils/size/size.dart';
 import 'package:provider/provider.dart';
 
-class RefillTemporary extends StatefulWidget {
-  RefillTemporary({super.key});
+class RefillTemporary extends HookWidget {
+  RefillTemporary({Key? key}) : super(key: key);
 
-  @override
-  State<RefillTemporary> createState() => _RefillTemporaryState();
-}
-
-class _RefillTemporaryState extends State<RefillTemporary> {
   @override
   Widget build(BuildContext context) {
     var refill = Provider.of<RefillStore>(context, listen: false);
-
     var req = useApiRequest<Refill>();
 
     useEffect(() {
       Future<void> fetch() async {
         if (req.value.pending.value) return;
         var res = await req.value.send(
-          getRefill(Provider.of<prescriptionStore>(context, listen: false)
-              .prescriptions
-              ?.prescriptions![0]
-              .prescriptionUuid as String),
+          getRefill(Provider.of<PatientStore>(context, listen: false)
+              .patient
+              ?.userUuid as String),
         );
-        print("object ${req.value.error.value}");
 
         if (res.success) {
           Provider.of<RefillStore>(context, listen: false)
               .changePrescription(res.data as Refill);
         }
-        print(res.data);
-        print("xxx");
       }
 
       fetch();
@@ -78,11 +66,11 @@ class _RefillTemporaryState extends State<RefillTemporary> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        '${refillHistory?.productName}',
+                        refillHistory?.productName ?? 'N/A',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        '${refillHistory?.instruction}',
+                        refillHistory?.instruction ?? 'N/A',
                         style: TextStyle(fontSize: 15),
                       ),
                     ],

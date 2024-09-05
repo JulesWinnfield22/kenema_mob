@@ -65,10 +65,10 @@ class _HomeScreenState extends State<HomeScreen> {
         screen: PrescriptioScreen(),
         subTitle: "Prescriptions"),
     ScreenData(
-        title: "Refill",
+        title: "Branches",
         icon: Icons.shield_outlined,
         screen: RefillScreen(),
-        subTitle: "Refill"),
+        subTitle: "Branches"),
   ];
 
   @override

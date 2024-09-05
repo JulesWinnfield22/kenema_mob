@@ -20,7 +20,7 @@ class Refill {
 var api = ApiService();
 
 Future<ResponseHandler<Refill>> getRefill(String id) async {
-  var res = await api.get("/kenema/refill/$id");
+  var res = await api.get("/kenema/refill/getByUuid/$id");
   if (res.success) {
     print(res.data.runtimeType);
     var decodedJson = jsonDecode(res.data as String);
